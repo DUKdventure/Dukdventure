@@ -7,6 +7,8 @@ public class Question : MonoBehaviour
     public GameObject nextQuestion;
     public double[] optionScores;
 
+    public GameObject loading;
+
     public void OnAnswerSelected(int optionIndex)
     {
         double score = 0;
@@ -24,7 +26,7 @@ public class Question : MonoBehaviour
         else
         {
             Debug.Log("모든 질문 완료!");
-            manager.ShowResult();
+            manager.StartCoroutine(manager.Loading());
         }
     }
 }
