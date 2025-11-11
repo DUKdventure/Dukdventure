@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System;
 
@@ -6,6 +7,8 @@ public class Question : MonoBehaviour
     public QuestionManager manager;
     public GameObject nextQuestion;
     public double[] optionScores;
+
+    public GameObject loading;
 
     public void OnAnswerSelected(int optionIndex)
     {
@@ -24,7 +27,7 @@ public class Question : MonoBehaviour
         else
         {
             Debug.Log("모든 질문 완료!");
-            manager.ShowResult();
+            manager.StartCoroutine(manager.Loading());
         }
     }
 }
