@@ -170,8 +170,13 @@ MonoBehaviour:
   characterImage: {fileID: 1935732622178563364}
   characterNameText: {fileID: 2254114906030517389}
   dialogText: {fileID: 8492925655481446613}
-  dialogData: {fileID: 0}
+  dialogData: {fileID: 11400000, guid: 6c2e08c9214631d41a9227011328b494, type: 2}
   typingSpeed: 0.03
+  skipButton: {fileID: 2946429661827623974}
+  skipAll: 1
+  nextSceneName: 
+  loadingScreen: {fileID: 0}
+  loadingVideo: {fileID: 0}
 --- !u!1 &1286172924762294406
 GameObject:
   m_ObjectHideFlags: 0

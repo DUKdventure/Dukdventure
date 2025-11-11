@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Dialog : MonoBehaviour
 {
@@ -19,30 +21,71 @@ public class Dialog : MonoBehaviour
 
     [Header("Typing Effect")]
     public float typingSpeed = 0.03f;
-    
+
+    [Header("Controls")]
+    public Button skipButton;
+    public bool skipAll = true;
+
+    [Header("Scene Flow")]
+    public string nextSceneName;
+
+    bool isLoading = false;
 
     protected void Start()
     {
+        if (skipButton)
+            skipButton.onClick.AddListener(OnSkipClicked);
+
         if (dialogData != null && dialogData.lines.Length > 0)
             ShowSentence(0);
     }
 
     void Update()
     {
+        if (isLoading) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             if (isTyping)
             {
-                //타이핑 중이면 전체 문장 바로 표시
-                StopCoroutine(typingCoroutine);
-                dialogText.text = dialogData.lines[currentIndex].text;
-                isTyping = false;
+                CompleteTypingCurrentLine();
             }
             else
             {
                 NextSentence();
             }
         }
+    }
+
+    public void OnSkipClicked()
+    {
+        if (isLoading) return;
+
+        if (isTyping)
+        {
+            CompleteTypingCurrentLine();
+            return;
+        }
+
+        if (skipAll)
+        {
+            EndDialog();
+        }
+        else
+        {
+            NextSentence();
+        }
+    }
+
+    void CompleteTypingCurrentLine()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+        dialogText.text = dialogData.lines[currentIndex].text;
+        isTyping = false;
     }
 
     protected void ShowSentence(int index)
@@ -77,6 +120,7 @@ public class Dialog : MonoBehaviour
         }
 
         isTyping = false;
+        typingCoroutine = null;
     }
 
     void NextSentence()
@@ -91,7 +135,26 @@ public class Dialog : MonoBehaviour
     void EndDialog()
     {
         Debug.Log("대화 종료");
-        gameObject.SetActive(false);
-    }
 
+        isLoading = true;
+
+        gameObject.SetActive(false);
+
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            if (SceneLoader.Instance != null)
+            {
+                SceneLoader.Instance.LoadScene(nextSceneName);
+            }
+            else
+            {
+                Debug.LogWarning("[Dialog] SceneLoader.Instance가 없어 바로 씬 로드합니다.");
+                SceneManager.LoadScene(nextSceneName);
+            }
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }    
 }
