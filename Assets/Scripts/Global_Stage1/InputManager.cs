@@ -4,11 +4,11 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CoddleManager : MonoBehaviour
+public class CoddleManager_Jamo : MonoBehaviour
 {
     [Header("Main Parents")]
-    public Transform coddleBackgroundParent; // CoddleBackground
-    public Transform coddleTextParent;       // Coddle_Text
+    public Transform coddleBackgroundParent;
+    public Transform coddleTextParent;
     public TMP_InputField inputField;
     public GameObject warningText;
 
@@ -17,8 +17,7 @@ public class CoddleManager : MonoBehaviour
     public GameObject failObject;
 
     [Header("Settings")]
-    public int wordLength = 6;
-    private string targetWord = "cookie";
+    private string targetWord = "덕성";
 
     private int currentAttempt = 0;
     private bool isGameOver = false;
@@ -26,9 +25,12 @@ public class CoddleManager : MonoBehaviour
     private List<List<Image>> baseLines = new List<List<Image>>();
     private List<List<TextMeshProUGUI>> textLines = new List<List<TextMeshProUGUI>>();
 
+    private List<string> targetJamoList; // 자모 분리된 정답 리스트
+
     void Start()
     {
-        // 하위 자동 탐색
+        targetJamoList = SplitToJamos(targetWord); 
+        // 하위 오브젝트 자동 탐색
         foreach (Transform round in coddleBackgroundParent)
         {
             List<Image> bases = new List<Image>();
@@ -60,7 +62,7 @@ public class CoddleManager : MonoBehaviour
         if (failObject != null) failObject.SetActive(false);
 
         inputField.onEndEdit.AddListener(OnSubmit);
-        Debug.Log($"CoddleManager 시작됨 / 라운드 {textLines.Count}개 감지됨");
+        Debug.Log($"CoddleManager_Jamo 시작됨 / 정답: {targetWord} ({string.Join(",", targetJamoList)})");
     }
 
     void OnSubmit(string input)
@@ -68,9 +70,11 @@ public class CoddleManager : MonoBehaviour
         if (inputField.wasCanceled) return;
         if (isGameOver) return;
         if (string.IsNullOrWhiteSpace(input)) return;
-        input = input.Trim().ToLower();
 
-        if (input.Length != wordLength)
+        input = input.Trim();
+        var inputJamoList = SplitToJamos(input);
+
+        if (inputJamoList.Count != targetJamoList.Count)
         {
             StartCoroutine(ShowWarning());
             inputField.text = "";
@@ -87,12 +91,13 @@ public class CoddleManager : MonoBehaviour
         var currentTextLine = textLines[currentAttempt];
         var currentBaseLine = baseLines[currentAttempt];
 
-        string result = GetResultString(input);
+        string result = GetResultString_Jamo(inputJamoList);
+
         Debug.Log($"[{currentAttempt + 1}번째 시도] 결과: {result}");
 
-        for (int i = 0; i < wordLength; i++)
+        for (int i = 0; i < inputJamoList.Count; i++)
         {
-            currentTextLine[i].text = input[i].ToString().ToUpper();
+            currentTextLine[i].text = inputJamoList[i];
 
             switch (result[i])
             {
@@ -109,7 +114,7 @@ public class CoddleManager : MonoBehaviour
         }
 
         // 정답 맞춘 경우
-        if (input == targetWord)
+        if (result.Replace("*", "O") == new string('O', result.Length))
         {
             Debug.Log("✅ 정답입니다! 게임 종료");
             if (successObject != null) successObject.SetActive(true);
@@ -119,7 +124,6 @@ public class CoddleManager : MonoBehaviour
 
         currentAttempt++;
 
-        // 3회 시도 후 실패 처리
         if (currentAttempt >= 3)
         {
             Debug.Log("❌ 3회 실패, 게임 종료");
@@ -138,32 +142,34 @@ public class CoddleManager : MonoBehaviour
         inputField.interactable = false;
     }
 
-    string GetResultString(string input)
+    // 자모 단위 비교 로직
+    string GetResultString_Jamo(List<string> inputJamos)
     {
-        char[] result = new char[wordLength];
-        bool[] targetUsed = new bool[wordLength];
+        int len = targetJamoList.Count;
+        char[] result = new char[len];
+        bool[] used = new bool[len];
 
-        // 자리+글자 일치
-        for (int i = 0; i < wordLength; i++)
+        // 위치+글자 일치
+        for (int i = 0; i < len; i++)
         {
-            if (input[i] == targetWord[i])
+            if (inputJamos[i] == targetJamoList[i])
             {
                 result[i] = 'O';
-                targetUsed[i] = true;
+                used[i] = true;
             }
         }
 
         // 글자만 포함
-        for (int i = 0; i < wordLength; i++)
+        for (int i = 0; i < len; i++)
         {
             if (result[i] == 'O') continue;
             bool found = false;
-            for (int j = 0; j < wordLength; j++)
+            for (int j = 0; j < len; j++)
             {
-                if (!targetUsed[j] && input[i] == targetWord[j])
+                if (!used[j] && inputJamos[i] == targetJamoList[j])
                 {
                     found = true;
-                    targetUsed[j] = true;
+                    used[j] = true;
                     break;
                 }
             }
@@ -172,6 +178,42 @@ public class CoddleManager : MonoBehaviour
 
         return new string(result);
     }
+
+    // 한글을 자모 단위로 분리
+    // 한글 자모 3개(초/중/종) 고정 분리 버전
+    List<string> SplitToJamos(string word)
+    {
+        List<string> jamos = new List<string>();
+
+        string[] CHO = { "ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ" };
+        string[] JUNG = { "ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅙ","ㅚ","ㅛ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ" };
+        string[] JONG = { "", "ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ" };
+
+        foreach (char c in word)
+        {
+            // 한글 유니코드 범위 확인
+            if (c < 0xAC00 || c > 0xD7A3)
+            {
+                // 한글이 아니면 그냥 세 칸 맞춰 넣기
+                jamos.Add(c.ToString());
+                jamos.Add("");
+                jamos.Add("");
+                continue;
+            }
+
+            int code = c - 0xAC00;
+            int cho = code / (21 * 28);
+            int jung = (code % (21 * 28)) / 28;
+            int jong = code % 28;
+
+            jamos.Add(CHO[cho]);          // 초성
+            jamos.Add(JUNG[jung]);        // 중성
+            jamos.Add(JONG[jong]);        // 종성 (없으면 "" 자동)
+        }
+
+        return jamos;
+    }
+
 
     IEnumerator ShowWarning()
     {
