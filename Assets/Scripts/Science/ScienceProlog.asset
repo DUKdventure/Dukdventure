@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ScienceProlog
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - characterName: 
+  - characterName: "\uBCF5\uB2E8\uC774"
     characterSprite: {fileID: 0}
     text: "\uC790\uC5F0\uACFC\uD559\uB300\uB294 \uC5B4\uB54C?"
   - characterName: "\uB355\uC0C8"
