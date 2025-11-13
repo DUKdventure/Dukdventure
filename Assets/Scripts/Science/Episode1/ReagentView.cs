@@ -3,14 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReagentQueueView : MonoBehaviour
+//각 시약에 정답 색상(DyeColor)을 저장해두는 단순 데이터 홀더
+//ReagentVIew에서 시약 생성 시 자동으로 추가됨
+public class ReagentCardDataHolder : MonoBehaviour { public DyeColor target; }
+
+/*
+ * 시약들이 뒤에서 앞으로 줄지어 나오고,
+ * 정답 시 맨 앞 시약이 사라지고 뒤 시약들이 앞으로 이동하는 연출을 담당한다.
+ *
+ * 주요 기능:
+ *  - PushBack() : 새 시약 생성 및 뒤에 추가
+ *  - RemoveFrontAndShiftForward() : 맨 앞 시약 제거 + 나머지 앞으로 이동
+ *  - RelayoutForward() : 전체 시약 재배치 (애니메이션 포함)
+ *
+ * 사용 위치:
+ *  - ReagentGame(메인 게임 매니저)에서 호출
+ */
+public class ReagentView : MonoBehaviour
 {
     [Header("Layout")]
     public RectTransform slotRoot;
     public ReagentCard cardPrefab;
-    public int visibleCount = 4;
-    public Vector2 frontPos = new Vector2(0, 60);
-    public Vector2 stepOffset = new Vector2(0, -40);
+    public int visibleCount = 5;
+    public Vector2 frontPos = new Vector2(0, -60);
+    public Vector2 stepOffset = new Vector2(0, 70);
     public float frontScale = 1.0f;
     public float scaleStep = -0.08f; //뒤로 갈수록 작아짐
     public float moveDur = 0.18f;
@@ -35,15 +51,18 @@ public class ReagentQueueView : MonoBehaviour
         var c = Instantiate(cardPrefab, slotRoot);
         c.Set(data);
 
+        var holder = c.gameObject.AddComponent<ReagentCardDataHolder>();
+        holder.target = data.targetColor;
+
         //처음 생성 시 맨 뒤 위치/스케일로 놓기
         int idx = Mathf.Min(cards.Count, visibleCount - 1);
-        var pos = GetPos(idx);
-        var sca = GetScale(idx);
-        c.RT.anchoredPosition = pos;
-        c.transform.localScale = sca;
+        c.RT.anchoredPosition = GetPos(idx);
+        c.transform.localPosition = GetScale(idx);
+
         cards.Add(c);
 
-        if (!instant) RelayoutForward();    //전체를 목표 위치로 보정
+        //전체를 목표 위치로 보정
+        if (!instant) RelayoutForward();    
     }
 
     public void RemoveFrontAndShiftForward(Action onAfterShift = null)
@@ -57,10 +76,7 @@ public class ReagentQueueView : MonoBehaviour
         //맨 앞 페이드/축소 제거
         var front = cards[0];
         cards.RemoveAt(0);
-        front.StartCoroutine(RemoveAnim(front, () =>
-        {
-            Destroy(front.gameObject);
-        }));
+        front.StartCoroutine(RemoveAnim(front, () => Destroy(front.gameObject)));
 
         //나머지 앞으로 한 칸씩 이동
         for (int i = 0; i < cards.Count; i++)
@@ -83,26 +99,21 @@ public class ReagentQueueView : MonoBehaviour
         }
     }
 
-    Vector2 GetPos(int i)
-    {
-        return frontPos + stepOffset * i;
-    }
-    Vector3 GetScale(int i)
-    {
-        return Vector3.one * Mathf.Max(0.2f, frontScale + scaleStep * i);
-    }
+    Vector2 GetPos(int i) => frontPos + stepOffset * i;
+
+    Vector3 GetScale(int i) => Vector3.one * Mathf.Max(0.2f, frontScale + scaleStep * i);
 
     IEnumerator RemoveAnim(ReagentCard c, Action onDone)
     {
         float dur = moveDur;
         float t = 0;
         var startS = c.transform.localScale;
-        var startPos = c.RT.anchoredPosition;
         var endS = startS * 0.7f;
+
+        var startPos = c.RT.anchoredPosition;
         var endPos = startPos + new Vector2(0, 30f);
-        var img = c.icon; var txt = c.nameText;
+        var img = c.icon;
         var imgColor = img ? img.color : Color.white;
-        var txtColor = txt ? txt.color : Color.white;
 
         while (t < dur)
         {
@@ -111,7 +122,6 @@ public class ReagentQueueView : MonoBehaviour
             c.transform.localScale = Vector3.Lerp(startS, endS, k);
             c.RT.anchoredPosition = Vector2.Lerp(startPos, endPos, k);
             if (img) img.color = new Color(imgColor.r, imgColor.g, imgColor.b, 1f - k);
-            if (txt) txt.color = new Color(txtColor.r, txtColor.g, txtColor.b, 1f - k);
             yield return null;
         }
         onDone?.Invoke();
