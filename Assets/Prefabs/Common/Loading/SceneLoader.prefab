@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c21804b51d76b5458ba5d13f560747c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
-  loadingScreen: {fileID: 0}
-  loadingVideo: {fileID: 0}
+  loadingScreen: {fileID: 2807301514089593955, guid: c415276eb00032e458b4c918c2de3740, type: 3}
+  loadingVideo: {fileID: 385377623299869364, guid: 0e3bd636993e2e24fb9af8f7cc296dc7, type: 3}
   minLoadingSeconds: 3
