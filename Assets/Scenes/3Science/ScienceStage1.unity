@@ -1328,7 +1328,7 @@ MonoBehaviour:
   scoreWrong: -50
   targetScore: 1500
   gameOverPanel: {fileID: 1135944414}
-  nextSceneName: 
+  nextSceneName: ScienceStage2
   clearTitle: EPISODE1 CLEAR!
   failTitle: TIME UP
 --- !u!4 &460288858
