@@ -2,31 +2,32 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float moveSpeed = 15f;
-    private Rigidbody rb;
-    private Vector3 inputDir;
+    private float moveSpeed = 50f;
+    private Rigidbody2D rb;
+    private Vector2 inputDir;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        float x = -Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
 
-        inputDir = new Vector3(x, 0, z).normalized;
+        inputDir = new Vector2(x, y).normalized;
+
+        // 좌우 반전 처리
+        if (x > 0) spriteRenderer.flipX = true;
+    if (x < 0) spriteRenderer.flipX = false;
+
     }
 
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + inputDir * moveSpeed * Time.fixedDeltaTime);
-
-        if (inputDir != Vector3.zero)
-        {
-            Quaternion targetRot = Quaternion.LookRotation(inputDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 0.2f);
-        }
     }
 }
