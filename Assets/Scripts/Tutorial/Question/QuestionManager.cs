@@ -8,6 +8,8 @@ public class QuestionManager : MonoBehaviour
     private double totalScore = 0;
     public VideoPlayer videoPlayer;
 
+    public static string finalResult;
+
     public GameObject resultRoot;   // 전체 결과 패널 (배경 + 이미지 포함)
 
     public Image resultImage;       // Result 안의 이미지
@@ -45,44 +47,62 @@ public class QuestionManager : MonoBehaviour
     ShowResult();
  }
 
-    public void ShowResult()
-{ resultRoot.SetActive(true);
+   public void ShowResult()
+{
+    resultRoot.SetActive(true);
 
-    // 2) 결과에 따라 이미지 설정 + DialogData 설정
     if (totalScore >= 9.5)
     {
         resultImage.sprite = sprite_Pharmacy;
         dialogScript.dialogData = data_Pharmacy;
+
+        finalResult = "Pharmacy";  // static
+        TutorialResultManager.Instance.finalResult = "Pharmacy"; // global
     }
     else if (totalScore >= 8.5)
     {
         resultImage.sprite = sprite_Science;
         dialogScript.dialogData = data_Science;
+
+        finalResult = "Science";
+        TutorialResultManager.Instance.finalResult = "Science";
     }
     else if (totalScore >= 7.0)
     {
         resultImage.sprite = sprite_Future;
         dialogScript.dialogData = data_Future;
+
+        finalResult = "Future";
+        TutorialResultManager.Instance.finalResult = "Future";
     }
     else if (totalScore >= 5.5)
     {
         resultImage.sprite = sprite_Global;
         dialogScript.dialogData = data_Global;
+
+        finalResult = "Global";
+        TutorialResultManager.Instance.finalResult = "Global";
     }
     else if (totalScore >= 3.0)
     {
         resultImage.sprite = sprite_Art;
         dialogScript.dialogData = data_Art;
+
+        finalResult = "Art";
+        TutorialResultManager.Instance.finalResult = "Art";
     }
     else
     {
         resultImage.sprite = sprite_Reject;
         dialogScript.dialogData = data_Reject;
+
+        finalResult = "Reject";
+        TutorialResultManager.Instance.finalResult = "Reject";
     }
 
-    // ★★★ 3) Dialog 오브젝트 강제 리셋 (핵심)
     dialogObject.SetActive(false);
     dialogObject.SetActive(true);
 }
+
 
 }
