@@ -42,7 +42,7 @@ public class MapLoader : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
-        float duration = 3f;
+        float duration = 1.2f;
         float time = 0f;
 
         Image img = targetGroup.GetComponentInChildren<Image>(true);
