@@ -12,6 +12,9 @@ public class SceneLoader : MonoBehaviour
     public VideoPlayer loadingVideo;
     public float minLoadingSeconds = 3f;
 
+    [Header("Direct Load (Optional)")]
+    public string sceneToLoad;
+
     void Awake()
     {
         if (Instance == null)
@@ -25,6 +28,16 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    // Button -> LoadConfiguredScene() 으로 호출
+    public void LoadConfiguredScene()
+    {
+        if (!string.IsNullOrEmpty(sceneToLoad))
+            LoadScene(sceneToLoad);
+        else
+            Debug.LogWarning("SceneLoader: sceneToLoad 가 비어있습니다.");
+    }
+
+    //다른 스크립트 -> LoadScene("씬명")
     public void LoadScene(string sceneName)
     {
         StartCoroutine(LoadSceneRoutine(sceneName));
