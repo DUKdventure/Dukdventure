@@ -627,7 +627,7 @@ PrefabInstance:
       objectReference: {fileID: 2092837540}
     - target: {fileID: 7481533146022590196, guid: b032bfefe10f669468737107de92cb00, type: 3}
       propertyPath: nextSceneName
-      value: ScienceEpisode1
+      value: ScienceStage1
       objectReference: {fileID: 0}
     - target: {fileID: 7481533146022590196, guid: b032bfefe10f669468737107de92cb00, type: 3}
       propertyPath: minLoadingSeconds

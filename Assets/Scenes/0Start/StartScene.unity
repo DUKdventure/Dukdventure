@@ -213,9 +213,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1216336749}
   - {fileID: 985568779}
   - {fileID: 2048459223}
+  - {fileID: 1216336749}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2083,7 +2083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2807301514089593955, guid: c415276eb00032e458b4c918c2de3740, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6600122143800752025, guid: c415276eb00032e458b4c918c2de3740, type: 3}
       propertyPath: m_Pivot.x
