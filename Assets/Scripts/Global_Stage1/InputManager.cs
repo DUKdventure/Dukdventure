@@ -44,8 +44,6 @@ public class CoddleManager_Jamo : MonoBehaviour
         targetWord = wordPool[Random.Range(0, wordPool.Length)];
         targetJamoList = SplitToJamos(targetWord);
 
-        TutorialResultManager.Instance.finalResult = "Global";
-        Debug.Log("현재 단과대: " + TutorialResultManager.Instance.finalResult);
 
         // 배경 라인 자동 탐색
         foreach (Transform round in coddleBackgroundParent)
