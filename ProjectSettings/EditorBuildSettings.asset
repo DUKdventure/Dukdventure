@@ -12,17 +12,14 @@ EditorBuildSettings:
     path: Assets/Scenes/3Science/ScienceProlog.unity
     guid: 42fa3ba39746bd743b2512dec53cf02d
   - enabled: 1
-    path: Assets/Scenes/3Science/ScienceEpisode1.unity
+    path: Assets/Scenes/3Science/ScienceStage1.unity
     guid: ff4a7279d456357469f748f750b9032e
   - enabled: 1
-    path: Assets/Scenes/1Tutorial/TutorialScene.unity
-    guid: 2f3145182d768e34dbc3216feb442108
+    path: Assets/Scenes/3Science/ScienceStage2.unity
+    guid: d2f41ee91c774094fa16a39f1b85444e
   - enabled: 1
-    path: Assets/Scenes/05Map/Map.unity
-    guid: 82370a9f7414bc04d8be07bb9e9bb94a
-  - enabled: 1
-    path: Assets/Scenes/0Start/StartScene.unity
-    guid: 3394c047145102a45aa9c60299b871cc
+    path: Assets/Scenes/3Science/WireMiniGame.unity
+    guid: 6f1e08759a8812442afd673f93974781
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
