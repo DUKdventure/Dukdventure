@@ -17,7 +17,18 @@ public class CoddleManager_Jamo : MonoBehaviour
     public GameObject failObject;
 
     [Header("Settings")]
-    private string targetWord = "덕성";
+    private string targetWord;
+    private string[] wordPool =
+    {
+        "생산",
+        "공급",
+        "평균",
+        "분산",
+        "인식",
+        "철학"
+    };
+
+    private int maxAttempts = 5;
 
     private int currentAttempt = 0;
     private bool isGameOver = false;
@@ -25,33 +36,38 @@ public class CoddleManager_Jamo : MonoBehaviour
     private List<List<Image>> baseLines = new List<List<Image>>();
     private List<List<TextMeshProUGUI>> textLines = new List<List<TextMeshProUGUI>>();
 
-    private List<string> targetJamoList; // 자모 분리된 정답 리스트
+    private List<string> targetJamoList;
 
     void Start()
     {
-        targetJamoList = SplitToJamos(targetWord); 
-        // 하위 오브젝트 자동 탐색
+        // 단어 랜덤 선택
+        targetWord = wordPool[Random.Range(0, wordPool.Length)];
+        targetJamoList = SplitToJamos(targetWord);
+
+        TutorialResultManager.Instance.finalResult = "Global";
+        Debug.Log("현재 단과대: " + TutorialResultManager.Instance.finalResult);
+
+        // 배경 라인 자동 탐색
         foreach (Transform round in coddleBackgroundParent)
         {
             List<Image> bases = new List<Image>();
             foreach (Transform baseObj in round)
             {
                 Image img = baseObj.GetComponent<Image>();
-                if (img != null)
-                    bases.Add(img);
+                if (img != null) bases.Add(img);
             }
             if (bases.Count > 0)
                 baseLines.Add(bases);
         }
 
+        // 텍스트 라인 자동 탐색
         foreach (Transform roundText in coddleTextParent)
         {
             List<TextMeshProUGUI> texts = new List<TextMeshProUGUI>();
             foreach (Transform textObj in roundText)
             {
                 TextMeshProUGUI tmp = textObj.GetComponent<TextMeshProUGUI>();
-                if (tmp != null)
-                    texts.Add(tmp);
+                if (tmp != null) texts.Add(tmp);
             }
             if (texts.Count > 0)
                 textLines.Add(texts);
@@ -62,6 +78,7 @@ public class CoddleManager_Jamo : MonoBehaviour
         if (failObject != null) failObject.SetActive(false);
 
         inputField.onEndEdit.AddListener(OnSubmit);
+
         Debug.Log($"CoddleManager_Jamo 시작됨 / 정답: {targetWord} ({string.Join(",", targetJamoList)})");
     }
 
@@ -69,11 +86,13 @@ public class CoddleManager_Jamo : MonoBehaviour
     {
         if (inputField.wasCanceled) return;
         if (isGameOver) return;
+
         if (string.IsNullOrWhiteSpace(input)) return;
 
         input = input.Trim();
         var inputJamoList = SplitToJamos(input);
 
+        // 자모 개수 다르면 경고
         if (inputJamoList.Count != targetJamoList.Count)
         {
             StartCoroutine(ShowWarning());
@@ -82,7 +101,7 @@ public class CoddleManager_Jamo : MonoBehaviour
             return;
         }
 
-        if (currentAttempt >= textLines.Count)
+        if (currentAttempt >= maxAttempts)
         {
             Debug.Log("모든 시도 완료");
             return;
@@ -102,21 +121,21 @@ public class CoddleManager_Jamo : MonoBehaviour
             switch (result[i])
             {
                 case 'O':
-                    currentBaseLine[i].color = new Color(0.6f, 1f, 0.6f); // 초록
+                    currentBaseLine[i].color = new Color(0.6f, 1f, 0.6f);
                     break;
                 case '*':
-                    currentBaseLine[i].color = new Color(1f, 1f, 0.6f);   // 노랑
+                    currentBaseLine[i].color = new Color(1f, 1f, 0.6f);
                     break;
                 case 'X':
-                    currentBaseLine[i].color = new Color(1f, 0.6f, 0.6f); // 빨강
+                    currentBaseLine[i].color = new Color(1f, 0.6f, 0.6f);
                     break;
             }
         }
 
-        // 정답 맞춘 경우
+        // 정답
         if (result.Replace("*", "O") == new string('O', result.Length))
         {
-            Debug.Log("✅ 정답입니다! 게임 종료");
+            Debug.Log("정답입니다!");
             if (successObject != null) successObject.SetActive(true);
             EndGame();
             return;
@@ -124,9 +143,10 @@ public class CoddleManager_Jamo : MonoBehaviour
 
         currentAttempt++;
 
-        if (currentAttempt >= 3)
+        // 5회 실패
+        if (currentAttempt >= maxAttempts)
         {
-            Debug.Log("❌ 3회 실패, 게임 종료");
+            Debug.Log("5회 실패, 게임 종료");
             if (failObject != null) failObject.SetActive(true);
             EndGame();
             return;
@@ -142,14 +162,13 @@ public class CoddleManager_Jamo : MonoBehaviour
         inputField.interactable = false;
     }
 
-    // 자모 단위 비교 로직
     string GetResultString_Jamo(List<string> inputJamos)
     {
         int len = targetJamoList.Count;
         char[] result = new char[len];
         bool[] used = new bool[len];
 
-        // 위치+글자 일치
+        // 위치 + 글자 완전 일치
         for (int i = 0; i < len; i++)
         {
             if (inputJamos[i] == targetJamoList[i])
@@ -163,6 +182,7 @@ public class CoddleManager_Jamo : MonoBehaviour
         for (int i = 0; i < len; i++)
         {
             if (result[i] == 'O') continue;
+
             bool found = false;
             for (int j = 0; j < len; j++)
             {
@@ -173,14 +193,13 @@ public class CoddleManager_Jamo : MonoBehaviour
                     break;
                 }
             }
+
             result[i] = found ? '*' : 'X';
         }
 
         return new string(result);
     }
 
-    // 한글을 자모 단위로 분리
-    // 한글 자모 3개(초/중/종) 고정 분리 버전
     List<string> SplitToJamos(string word)
     {
         List<string> jamos = new List<string>();
@@ -191,10 +210,8 @@ public class CoddleManager_Jamo : MonoBehaviour
 
         foreach (char c in word)
         {
-            // 한글 유니코드 범위 확인
             if (c < 0xAC00 || c > 0xD7A3)
             {
-                // 한글이 아니면 그냥 세 칸 맞춰 넣기
                 jamos.Add(c.ToString());
                 jamos.Add("");
                 jamos.Add("");
@@ -206,14 +223,13 @@ public class CoddleManager_Jamo : MonoBehaviour
             int jung = (code % (21 * 28)) / 28;
             int jong = code % 28;
 
-            jamos.Add(CHO[cho]);          // 초성
-            jamos.Add(JUNG[jung]);        // 중성
-            jamos.Add(JONG[jong]);        // 종성 (없으면 "" 자동)
+            jamos.Add(CHO[cho]);
+            jamos.Add(JUNG[jung]);
+            jamos.Add(JONG[jong]);
         }
 
         return jamos;
     }
-
 
     IEnumerator ShowWarning()
     {
