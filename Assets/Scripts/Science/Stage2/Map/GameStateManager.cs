@@ -20,7 +20,7 @@ public class GameStateManager : MonoBehaviour
     {
         if(Instance != null && Instance != this)
         {
-            Destroy(Instance);
+            Destroy(gameObject);
             return;
         }
 
@@ -28,7 +28,7 @@ public class GameStateManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    //비커존에서 미니게임 들어가기 직전에 호출
+    //미니게임 들어가기 직전에 호출
     public void SetReturnPoints(string sceneName, Vector2 successPos, Vector2 exitPos)
     {
         returnSceneName = sceneName;
