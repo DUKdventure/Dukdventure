@@ -211,6 +211,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &207183749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 207183750}
+  m_Layer: 0
+  m_Name: SampleSharp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &207183750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207183749}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 792345704}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &397706084
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,27 +393,13 @@ GameObject:
   - component: {fileID: 587141146}
   - component: {fileID: 587141145}
   - component: {fileID: 587141144}
-  - component: {fileID: 587141143}
   m_Layer: 0
-  m_Name: Lenses
-  m_TagString: Untagged
+  m_Name: FocusLens
+  m_TagString: FocusLens
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &587141143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587141142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a9c4b99614a6f41aa0b4b76989a929, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Lens
-  outDirection: {x: 0, y: 1}
 --- !u!58 &587141144
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -596,7 +613,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8005cfa5351e0d84794aa66385005413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LaserRay
-  maxDistance: 50
+  line: {fileID: 620773904}
+  maxDist: 100
   maxBounce: 10
   hitMask:
     serializedVersion: 2
@@ -711,6 +729,54 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &792345703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 792345704}
+  - component: {fileID: 792345705}
+  m_Layer: 0
+  m_Name: SamplePlate
+  m_TagString: SamplePlate
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &792345704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792345703}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.32397, y: -1.93683, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1528781356}
+  - {fileID: 207183750}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &792345705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792345703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d6c173ffc49c945b3b6f5db397afb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SamplePlate
+  sampleBlur: {fileID: 1528781355}
+  sampleSharp: {fileID: 207183749}
 --- !u!1 &1369172194
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +788,7 @@ GameObject:
   - component: {fileID: 1369172197}
   - component: {fileID: 1369172196}
   - component: {fileID: 1369172199}
-  - component: {fileID: 1369172198}
+  - component: {fileID: 1369172200}
   m_Layer: 0
   m_Name: Mirror
   m_TagString: Mirror
@@ -803,19 +869,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -47.83}
---- !u!114 &1369172198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1369172194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e69a725854f59e4c92f0ca98cc29d58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Rotatable
-  rotateSpeed: 100
 --- !u!61 &1369172199
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -862,6 +915,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1369172200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369172194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29100567a8571de468f8174d510bed1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggableMirror
+  useClamp: 0
+  minPos: {x: -5, y: -3}
+  maxPos: {x: 5, y: 3}
+  allowRotate: 1
+  rotateSpeed: 100
 --- !u!1 &1455730061
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,12 +964,44 @@ Transform:
   - {fileID: 620773901}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1528781355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1528781356}
+  m_Layer: 0
+  m_Name: SampleBlur
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1528781356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528781355}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 792345704}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 12619709}
   - {fileID: 1455730062}
-  - {fileID: 397706087}
   - {fileID: 1369172197}
   - {fileID: 587141146}
+  - {fileID: 792345704}
+  - {fileID: 397706087}

@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Mirror
   - Goal
-  - Lens
+  - SamplePlate
+  - FocusLens
   layers:
   - Default
   - TransparentFX

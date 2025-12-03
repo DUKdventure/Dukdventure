@@ -1,20 +1,18 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(LineRenderer))]
 public class LaserRay : MonoBehaviour
 {
-    [Header("레이저 설정")]
-    public float maxDistance = 50f;
+    public LineRenderer line;
+    public float maxDist = 100f;
     public int maxBounce = 10;
-    public LayerMask hitMask; //Mirror, Lens, Wall, Goal 포함
+    public LayerMask hitMask;
 
-    LineRenderer line;
+    SamplePlate samplePlate;
 
-    void Awake()
+    void Start()
     {
         line = GetComponent<LineRenderer>();
+        samplePlate = FindAnyObjectByType<SamplePlate>();
     }
 
     void Update()
@@ -24,68 +22,53 @@ public class LaserRay : MonoBehaviour
 
     void CastLaser()
     {
-        List<Vector3> points = new List<Vector3>();
-
         Vector3 origin = transform.position;
-        Vector3 dir = transform.right; //오른쪽 방향으로 쏘기 (Emitter의 local X)
+        Vector3 dir = transform.right;
 
-        points.Add(origin);
+        line.positionCount = 1;
+        line.SetPosition(0, origin);
 
         for (int i = 0; i < maxBounce; i++)
         {
-            RaycastHit2D hit = Physics2D.Raycast(origin, dir, maxDistance, hitMask);
+            RaycastHit2D hit = Physics2D.Raycast(origin, dir, maxDist, hitMask);
 
-            if (hit.collider == null)
+            if (!hit.collider)
             {
-                //아무것도 안 맞으면 직선으로 끝까지
-                points.Add(origin + dir * maxDistance);
+                line.positionCount++;
+                line.SetPosition(line.positionCount - 1, origin + dir * maxDist);
                 break;
             }
 
-            //맞은 지점
-            Vector3 hitPoint = hit.point;
-            points.Add(hitPoint);
+            Vector3 hitPos = hit.point;
+            line.positionCount++;
+            line.SetPosition(line.positionCount - 1, hitPos);
 
-            //Goal에 닿았는지 체크
-            if (hit.collider.CompareTag("Goal"))
-            {
-                Goal goal = hit.collider.GetComponent<Goal>();
-                if (goal != null)
-                {
-                    goal.OnHitByLaser();
-                }
-                break;
-            }
-
-            //Mirror에 닿으면 반사
+            //Mirror 반사
             if (hit.collider.CompareTag("Mirror"))
             {
-                Vector2 inDir = dir;
-                Vector2 normal = hit.normal;
-                Vector2 reflectDir = Vector2.Reflect(inDir, normal).normalized;
-
-                dir = reflectDir;
-                origin = hitPoint + (Vector3)dir * 0.01f; // 살짝 앞으로
+                dir = Vector2.Reflect(dir, hit.normal);
+                origin = hitPos + dir * 0.01f;
                 continue;
             }
 
-            //Lens에 닿으면 굴절(간단 버전: 렌즈가 정해준 방향으로 강제)
-            if (hit.collider.CompareTag("Lens"))
+            //SamplePlate 흐릿 이미지 켜기
+            if (hit.collider.CompareTag("SamplePlate"))
             {
-                Lens lens = hit.collider.GetComponent<Lens>();
-                if (lens != null)
-                {
-                    dir = lens.GetOutDirection(dir, hit.normal);
-                    origin = hitPoint + (Vector3)dir * 0.01f;
-                    continue;
-                }
+                samplePlate.ShowBlur();
+                origin = hitPos + dir * 0.01f;
+                continue;
             }
 
-            //Wall 이나 기타: 여기서 끝
+            //FocusLens 선명 이미지 켜기
+            if (hit.collider.CompareTag("FocusLens"))
+            {
+                samplePlate.ShowSharp();
+                break;
+            }
+
+            //그 외 충돌 → 레이저 멈춤
             break;
         }
-
-        line.positionCount = points.Count;
-        line.SetPositions(points.ToArray());
     }
+
 }
