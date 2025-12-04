@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3896835d31eeaa4baf50bb2681294bd, type: 3}
-  m_Name: Reagent_Acid
+  m_Name: Rg_blue1
   m_EditorClassIdentifier: Assembly-CSharp::ReagentData
-  displayName: Acid
-  sprite: {fileID: 0}
-  targetColor: 0
+  sprite: {fileID: 21300000, guid: c9a6170158f5e2f4e889f98af34dd93a, type: 3}
+  targetColor: 2
+  uiSize: {x: 285, y: 331}
+  uiPivot: {x: 0.55, y: 0.5}
+  uiOffset: {x: 0, y: 0}

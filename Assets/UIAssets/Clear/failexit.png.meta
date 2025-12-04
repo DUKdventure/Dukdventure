@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 844a9b8412a470248ac1ce16126fc425
+guid: 944d9754aec22254c9849db249d9a6b6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9165056340494942513
-    second: Wire_end_0
+      213: 7047263269447518465
+    second: failexit_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,13 +46,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
-  spriteExtrude: 0
-  spriteMeshType: 0
-  alignment: 4
-  spritePivot: {x: 1, y: 0.5}
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 89, y: 0, z: 103, w: 0}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -96,27 +96,40 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wire_end_0
+      name: failexit_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 213
-        height: 130
+        width: 254
+        height: 114
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fce7b5e11dd2fc080800000000000000
-      internalID: -9165056340494942513
+      spriteID: 109c3160b98ecc160800000000000000
+      internalID: 7047263269447518465
       vertices: []
       indices: 
       edges: []
@@ -125,8 +138,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Wire_end_0: -9165056340494942513
+      failexit_0: 7047263269447518465
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

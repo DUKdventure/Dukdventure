@@ -31,6 +31,10 @@ public class ReagentView : MonoBehaviour
     public float scaleStep = -0.08f; //뒤로 갈수록 작아짐
     public float moveDur = 0.18f;
 
+    [Header("Brightness")]
+    public float frontBrightness = 1f;       
+    public float brightnessStep = -0.15f;
+
     readonly List<ReagentCard> cards = new List<ReagentCard>();
     
     //현재 카드 개수
@@ -46,6 +50,15 @@ public class ReagentView : MonoBehaviour
         cards.Clear();
     }
 
+    void RefreshSiblingOrder()
+    {
+        // cards[0] = 맨 앞 카드 -> 가장 마지막 sibling (화면 맨 위)
+        for (int i = 0; i < cards.Count; i++)
+        {
+            cards[i].transform.SetSiblingIndex(cards.Count - 1 - i);
+        }
+    }
+
     public void PushBack(ReagentData data, bool instant = false)
     {
         var c = Instantiate(cardPrefab, slotRoot);
@@ -56,13 +69,18 @@ public class ReagentView : MonoBehaviour
 
         //처음 생성 시 맨 뒤 위치/스케일로 놓기
         int idx = Mathf.Min(cards.Count, visibleCount - 1);
+
         c.RT.anchoredPosition = GetPos(idx);
-        c.transform.localPosition = GetScale(idx);
+        c.transform.localScale = GetScale(idx);
+
+        float brightness = Mathf.Clamp(frontBrightness + brightnessStep * idx, 0.2f, 1f);
+        c.SetDarkness(brightness);
 
         cards.Add(c);
 
         //전체를 목표 위치로 보정
-        if (!instant) RelayoutForward();    
+        if (!instant) RelayoutForward();
+        RefreshSiblingOrder();
     }
 
     public void RemoveFrontAndShiftForward(Action onAfterShift = null)
@@ -81,11 +99,19 @@ public class ReagentView : MonoBehaviour
         //나머지 앞으로 한 칸씩 이동
         for (int i = 0; i < cards.Count; i++)
         {
-            var targetPos = GetPos(i);
-            var targetScale = GetScale(i);
-            StartCoroutine(cards[i].AnimateTo(targetPos, targetScale, moveDur));
+            var card = cards[i];
+            var pos = GetPos(i);
+            var scale = GetScale(i);
 
+            StartCoroutine(card.AnimateTo(pos, scale, moveDur));
+
+            // 밝기 적용
+            float brightness = Mathf.Clamp(frontBrightness + brightnessStep * i, 0.2f, 1f);
+            card.SetDarkness(brightness);
         }
+
+        RefreshSiblingOrder();
+
         StartCoroutine(Delay(moveDur, () => onAfterShift?.Invoke()));
     }
 
@@ -93,10 +119,19 @@ public class ReagentView : MonoBehaviour
     {
         for (int i = 0; i < cards.Count && i < visibleCount; i++)
         {
-            var targetPos = GetPos(i);
-            var targetScale = GetScale(i);
-            StartCoroutine(cards[i].AnimateTo(targetPos, targetScale, moveDur));
+            var card = cards[i];
+
+            var pos = GetPos(i);
+            var scale = GetScale(i);
+
+            StartCoroutine(card.AnimateTo(pos, scale, moveDur));
+
+            // 밝기 설정
+            float brightness = Mathf.Clamp(frontBrightness + brightnessStep * i, 0.2f, 1f);
+            card.SetDarkness(brightness);
         }
+
+        RefreshSiblingOrder();
     }
 
     Vector2 GetPos(int i) => frontPos + stepOffset * i;

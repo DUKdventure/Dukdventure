@@ -37,13 +37,13 @@ public class ReagentGame : MonoBehaviour
     public float timeLimit = 60f;
     public int scoreCorrect = 100;
     public int scoreWrong = -50;
-    public int targetScore = 1500;
+    public int targetScore = 3000;
 
     [Header("Game Over")]
-    public GameOverPanel gameOverPanel;
+    public ClearPanel clearPanel;   //클리어 전용 패널
+    public FailPanel failPanel;     //실패 전용 패널
     public string nextSceneName = "";
-    public string clearTitle = "STAGE CLEAR!";
-    public string failTitle = "TIME UP";
+    public string menuSceneName = "";       //필요하면 메뉴 씬 이름 넣어서 QuitToMenu에서 사용
 
     bool gameStarted = false;
     float timeLeft;
@@ -53,7 +53,9 @@ public class ReagentGame : MonoBehaviour
 
     void Start()
     {
-        if (gameOverPanel) gameOverPanel.HideInstant();
+        // 시작 시 결과 패널들은 숨겨두기
+        if (clearPanel) clearPanel.HideInstant();
+        if (failPanel) failPanel.HideInstant();
 
         //에피소드 패널이 있으면 먼저 보여주고 잠시 후 게임 시작
         if (episodePanel != null)
@@ -106,6 +108,11 @@ public class ReagentGame : MonoBehaviour
         locked = false;
         score = 0;
         timeLeft = timeLimit;
+
+        //혹시 남아 있을 수 있는 패널들 끄기
+        if (clearPanel) clearPanel.HideInstant();
+        if (failPanel) failPanel.HideInstant();
+
 
         queueView.ClearAll();
         for (int i = 0; i < preloadVisible; i++)
@@ -197,15 +204,28 @@ public class ReagentGame : MonoBehaviour
         gameEnded = true;
         locked = true;
 
-        if (gameOverPanel)
+        if (clearPanel)
         {
-            gameOverPanel.ShowClear(
-                clearTitle, score,
-                onNext: () => {
+            clearPanel.ShowClear(
+                score: score,
+                onRetry: () =>
+                {
+                    //다시하기 버튼
+                    RestartGame();
+                },
+                onNext: () =>
+                {
+                    //다음 씬으로 넘어가기
                     if (!string.IsNullOrEmpty(nextSceneName) && SceneLoader.Instance != null)
                         SceneLoader.Instance.LoadScene(nextSceneName);
                 },
-                onQuit: null //필요하면 메뉴 씬 로드 콜백 넣기
+                onMenu: () =>
+                {
+                    // 메뉴 버튼 → 설정 패널 연동은 ClearPanel 내부에서 처리해도 되고
+                    // 여기서 전용 메뉴 씬으로 보내도 됨
+                    if (!string.IsNullOrEmpty(menuSceneName) && SceneLoader.Instance != null)
+                        SceneLoader.Instance.LoadScene(menuSceneName);
+                }
             );
         }
         else
@@ -230,12 +250,20 @@ public class ReagentGame : MonoBehaviour
         gameEnded = true;
         locked = true;
 
-        if (gameOverPanel)
+        if (failPanel)
         {
-            gameOverPanel.ShowFail(
-                failTitle, score,
-                onRetry: () => { RestartGame(); },
-                onQuit: null // 필요 시 메뉴로
+            failPanel.ShowFail(
+                score: score,
+                onRetry: () =>
+                {
+                    //다시하기
+                    RestartGame();
+                },
+                onExit: () =>
+                {
+                    //"저장되지 않는다" 팝업에서 최종 확정 눌렀을 때 호출하게 하면 됨
+                    QuitToMenu(menuSceneName);
+                }
             );
         }
         else
@@ -246,8 +274,9 @@ public class ReagentGame : MonoBehaviour
 
     public void RestartGame()
     {
-        // 패널 숨기기
-        if (gameOverPanel) gameOverPanel.HideInstant();
+        //패널 숨기기
+        if (clearPanel) clearPanel.HideInstant();
+        if (failPanel) failPanel.HideInstant();
 
         // 초기화 & 재시작
         StartNewRun();

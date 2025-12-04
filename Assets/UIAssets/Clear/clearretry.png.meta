@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 395f28d1f8eca3c47a318442468a872c
+guid: a182323a5dc8fe74f830236c15bebecb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -885842644054199507
-    second: Wire_start_0
+      213: -7829099736161538636
+    second: clearretry_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wire_start_0
+      name: clearretry_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 199
-        height: 129
+        width: 148
+        height: 114
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d23b1420fcad4b3f0800000000000000
-      internalID: -885842644054199507
+      spriteID: 4bdacf23543795390800000000000000
+      internalID: -7829099736161538636
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Wire_start_0: -885842644054199507
+      clearretry_0: -7829099736161538636
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

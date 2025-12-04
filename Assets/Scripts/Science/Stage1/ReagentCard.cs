@@ -23,8 +23,23 @@ public class ReagentCard : MonoBehaviour
     //시약 이미지 세팅
     public void Set(ReagentData data)
     {
-        if (icon)
-            icon.sprite = data.sprite;
+        if (!icon || data == null) return;
+
+        icon.sprite = data.sprite;
+
+        var iconRT = icon.rectTransform;
+
+        // 크기
+        if (data.uiSize.x > 0f && data.uiSize.y > 0f)
+            iconRT.sizeDelta = data.uiSize;
+        else
+            icon.SetNativeSize();
+
+        //피봇 적용
+        iconRT.pivot = data.uiPivot;
+
+        //카드 안에서 위치 보정
+        iconRT.anchoredPosition = data.uiOffset;
     }
 
     //지정된 위치와 스케일로 부드럽게 이동
@@ -44,5 +59,16 @@ public class ReagentCard : MonoBehaviour
         rt.anchoredPosition = targetPos;
         transform.localScale = targetScale;
     }
+
     public RectTransform RT => rt;
+
+    public void SetDarkness(float brightness)
+    {
+        if (icon)
+        {
+            var c = icon.color;
+            icon.color = new Color(1f * brightness, 1f * brightness, 1f * brightness, c.a);
+        }
+    }
+    
 }
