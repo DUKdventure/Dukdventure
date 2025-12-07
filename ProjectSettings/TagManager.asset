@@ -8,6 +8,7 @@ TagManager:
   - Goal
   - SamplePlate
   - FocusLens
+  - Petri
   layers:
   - Default
   - TransparentFX
