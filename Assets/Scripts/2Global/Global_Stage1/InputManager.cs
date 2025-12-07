@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CoddleManager_Jamo : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
     [Header("Main Parents")]
     public Transform coddleBackgroundParent;

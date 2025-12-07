@@ -27,11 +27,26 @@ EditorBuildSettings:
     path: Assets/Scenes/2Global/Stage 1/GlobalGameScene_Stage1.unity
     guid: 9b589da4bde23b34d975381b72b29adb
   - enabled: 1
-    path: Assets/Scenes/2Global/Stage 1/GlobalDialog_S1Ending.unity
+    path: Assets/Scenes/2Global/Stage 1/GlobalDialog_S1ClearEnding.unity
     guid: 98672411ada977f49ad9d26cfb43f946
   - enabled: 1
-    path: Assets/Scenes/2Global/Stage 1/GlobalDialog_intro.unity
+    path: Assets/Scenes/2Global/Stage 1/GlobalDialog_S1Intro.unity
     guid: b1bd40b82f8185843b5e3677159a95f7
+  - enabled: 1
+    path: Assets/Scenes/05Map/Map.unity
+    guid: 82370a9f7414bc04d8be07bb9e9bb94a
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 1/GlobalDialog_S1FailEnding.unity
+    guid: 6e30c5d9c1399c94baddf4860afe2b07
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 2/GloballDialog_S2Intro.unity
+    guid: 70b6d2a1023db124f83e18b684a5719f
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 2/GlobalDialog_S2ClearEnding.unity
+    guid: a9c631129ee69484489df7f2596f5ea8
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 2/GlobalDialog_S2FailEnding.unity
+    guid: c0f3f0723fed52842bfe4a1d5a9390d0
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

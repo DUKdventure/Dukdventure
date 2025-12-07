@@ -1436,7 +1436,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GlobalDialog_S1Ending
+          m_StringArgument: GlobalDialog_S1ClearEnding
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &245481459
@@ -7126,7 +7126,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Map
+          m_StringArgument: GlobalDialog_S1FailEnding
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1672301884
