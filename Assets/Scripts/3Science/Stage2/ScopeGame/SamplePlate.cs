@@ -22,4 +22,10 @@ public class SamplePlate : MonoBehaviour
         sampleBlur.SetActive(false);
         sampleSharp.SetActive(true);
     }
+
+    public void HideAll()
+    {
+        sampleBlur.SetActive(false);
+        sampleSharp.SetActive(false);
+    }
 }
