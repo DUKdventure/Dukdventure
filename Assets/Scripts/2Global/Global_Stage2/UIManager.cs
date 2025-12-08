@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject clearUI;
 
+
     public GameObject greenUI;  // G_Book
     public GameObject yellowUI; // Y_Book
     public GameObject redUI;    // R_Book
