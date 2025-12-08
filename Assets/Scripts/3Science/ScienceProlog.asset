@@ -13,9 +13,28 @@ MonoBehaviour:
   m_Name: ScienceProlog
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - characterName: "\uBCF5\uB2E8\uC774"
-    characterSprite: {fileID: 0}
-    text: "\uC790\uC5F0\uACFC\uD559\uB300\uB294 \uC5B4\uB54C?"
   - characterName: "\uB355\uC0C8"
-    characterSprite: {fileID: 0}
-    text: "\uB9CC\uB9CC\uCE58 \uC54A\uC544.."
+    characterSprite: {fileID: 9079106511365804854, guid: 1b58b95880becf64793446fdf43f583f, type: 3}
+    text: "\uC774\uBC88 \uC2E4\uD5D8\uC774 \uCCAB \uC2E4\uD5D8\uC778\uB370..."
+    imageSize: {x: 400, y: 400}
+  - characterName: "\uB355\uC0C8"
+    characterSprite: {fileID: 9079106511365804854, guid: 1b58b95880becf64793446fdf43f583f, type: 3}
+    text: "\uC798 \uD560 \uC218 \uC788\uACA0\uC9C0?"
+    imageSize: {x: 400, y: 400}
+  - characterName: "\uB355\uC0C8"
+    characterSprite: {fileID: 9079106511365804854, guid: 1b58b95880becf64793446fdf43f583f, type: 3}
+    text: "\uC774\uB807\uAC8C \uB123\uB294\uAC74\uAC00...?"
+    imageSize: {x: 400, y: 400}
+  - characterName: "\uB355\uC0C8"
+    characterSprite: {fileID: 9079106511365804854, guid: 1b58b95880becf64793446fdf43f583f, type: 3}
+    text: "\uC5E5...\uC774\uAC8C \uC544\uB2C8\uC57C?"
+    imageSize: {x: 400, y: 400}
+  - characterName: "\uB355\uC0C8"
+    characterSprite: {fileID: 9079106511365804854, guid: 1b58b95880becf64793446fdf43f583f, type: 3}
+    text: "\uC11E\uC774\uBA74 \uC548\uB418\uB294\uAC70\uB77C\uACE0?!"
+    imageSize: {x: 400, y: 400}
+  - characterName: "\uB355\uC0C8"
+    characterSprite: {fileID: 9079106511365804854, guid: 1b58b95880becf64793446fdf43f583f, type: 3}
+    text: "\uAD50\uC218\uB2D8\uC774 \uC54C\uAE30 \uC804\uC5D0 \uBE68\uB9AC \uBD84\uB9AC
+      \uD558\uC790!"
+    imageSize: {x: 400, y: 400}

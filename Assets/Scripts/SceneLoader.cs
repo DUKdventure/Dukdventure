@@ -21,12 +21,17 @@ public class SceneLoader : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            
         }
         else
         {
             Destroy(gameObject);
         }
     }
+
+     
+
 
     // Button -> LoadConfiguredScene() 으로 호출
     public void LoadConfiguredScene()
