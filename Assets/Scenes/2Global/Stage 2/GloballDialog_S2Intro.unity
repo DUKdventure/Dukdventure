@@ -703,7 +703,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: f78e7f64c7589af4c972cbaa75d4119f, type: 2}
     - target: {fileID: 7481533146022590196, guid: b032bfefe10f669468737107de92cb00, type: 3}
       propertyPath: nextSceneName
-      value: 
+      value: GlobalGameScene_Stage2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
