@@ -14,6 +14,7 @@ public class LibrarianAutoWalk : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         sr=GetComponent<SpriteRenderer>();
+        
         if (waywalk.Length > 0)
             transform.position = waywalk[0].position;
     }

@@ -9,7 +9,9 @@ public class DropZone : MonoBehaviour, IDropHandler
     public string placeholder = "(        )";  // 대체될 부분
 
     public void OnDrop(PointerEventData eventData)
-    {
+    {   
+        Debug.Log("🔻 OnDrop 호출됨");
+
         DragText dragged = eventData.pointerDrag.GetComponent<DragText>();
         if (dragged == null) return;
 

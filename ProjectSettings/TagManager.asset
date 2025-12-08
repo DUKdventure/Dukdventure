@@ -13,11 +13,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacle
   - Water
   - UI
   - Librarian
-  - Obstacle
+  - 
   - Ground
   - Player
   - 

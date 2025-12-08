@@ -16,7 +16,8 @@ public class DragText : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
 
-        textValue = GetComponent<TMP_Text>().text;
+        textValue = GetComponentInChildren<TMP_Text>().text.Trim();
+
     }
 
     public void OnBeginDrag(PointerEventData eventData)
