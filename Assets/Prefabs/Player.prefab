@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5438867333888543271}
   - component: {fileID: 6787516257034464501}
   - component: {fileID: 8193858108097881258}
-  - component: {fileID: 2273339341557046486}
   - component: {fileID: 7020403822556008743}
+  - component: {fileID: 1897800916758321501}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -157,19 +157,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.004439473, y: 0.030636013}
   m_Radius: 0.9551045
---- !u!114 &2273339341557046486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839784209023991870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cc5296706010cf4fb21d9370c8ea0b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
-  moveSpeed: 4
 --- !u!95 &7020403822556008743
 Animator:
   serializedVersion: 7
@@ -192,3 +179,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1897800916758321501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839784209023991870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cc5296706010cf4fb21d9370c8ea0b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
+  moveSpeed: 4

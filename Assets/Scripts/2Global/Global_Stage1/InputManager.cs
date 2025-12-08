@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CoddleManager_Jamo : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
     [Header("Main Parents")]
     public Transform coddleBackgroundParent;
@@ -15,6 +15,11 @@ public class CoddleManager_Jamo : MonoBehaviour
     [Header("Result Objects")]
     public GameObject successObject;
     public GameObject failObject;
+
+    [Header("Background Sprites (결과에 따라 적용될 스프라이트)")]
+    public Sprite greenSprite;   // O
+    public Sprite yellowSprite;  // *
+    public Sprite redSprite;     // X
 
     [Header("Settings")]
     private string targetWord;
@@ -29,7 +34,6 @@ public class CoddleManager_Jamo : MonoBehaviour
     };
 
     private int maxAttempts = 5;
-
     private int currentAttempt = 0;
     private bool isGameOver = false;
 
@@ -38,12 +42,13 @@ public class CoddleManager_Jamo : MonoBehaviour
 
     private List<string> targetJamoList;
 
+    public GameObject somePanel;
     void Start()
-    {
-        // 단어 랜덤 선택
+    {   
+
+        // 정답 랜덤 선택
         targetWord = wordPool[Random.Range(0, wordPool.Length)];
         targetJamoList = SplitToJamos(targetWord);
-
 
         // 배경 라인 자동 탐색
         foreach (Transform round in coddleBackgroundParent)
@@ -77,14 +82,14 @@ public class CoddleManager_Jamo : MonoBehaviour
 
         inputField.onEndEdit.AddListener(OnSubmit);
 
-        Debug.Log($"CoddleManager_Jamo 시작됨 / 정답: {targetWord} ({string.Join(",", targetJamoList)})");
+        Debug.Log($"CoddleManager_Jamo 시작 / 정답: {targetWord} ({string.Join(",", targetJamoList)})");
     }
-
+    
+    
     void OnSubmit(string input)
     {
         if (inputField.wasCanceled) return;
         if (isGameOver) return;
-
         if (string.IsNullOrWhiteSpace(input)) return;
 
         input = input.Trim();
@@ -99,11 +104,7 @@ public class CoddleManager_Jamo : MonoBehaviour
             return;
         }
 
-        if (currentAttempt >= maxAttempts)
-        {
-            Debug.Log("모든 시도 완료");
-            return;
-        }
+        if (currentAttempt >= maxAttempts) return;
 
         var currentTextLine = textLines[currentAttempt];
         var currentBaseLine = baseLines[currentAttempt];
@@ -116,21 +117,26 @@ public class CoddleManager_Jamo : MonoBehaviour
         {
             currentTextLine[i].text = inputJamoList[i];
 
+            Image baseImg = currentBaseLine[i];
+
+            // === 여기서 색이 아닌 이미지(Sprite)로 변경됨 ===
             switch (result[i])
             {
-                case 'O':
-                    currentBaseLine[i].color = new Color(0.6f, 1f, 0.6f);
+                case 'O': // 완전 일치
+                    if (greenSprite != null) baseImg.sprite = greenSprite;
                     break;
-                case '*':
-                    currentBaseLine[i].color = new Color(1f, 1f, 0.6f);
+
+                case '*': // 글자 포함
+                    if (yellowSprite != null) baseImg.sprite = yellowSprite;
                     break;
-                case 'X':
-                    currentBaseLine[i].color = new Color(1f, 0.6f, 0.6f);
+
+                case 'X': // 없음
+                    if (redSprite != null) baseImg.sprite = redSprite;
                     break;
             }
         }
 
-        // 정답
+        // 정답 체크
         if (result.Replace("*", "O") == new string('O', result.Length))
         {
             Debug.Log("정답입니다!");
@@ -141,10 +147,10 @@ public class CoddleManager_Jamo : MonoBehaviour
 
         currentAttempt++;
 
-        // 5회 실패
+        // 5회 모두 실패
         if (currentAttempt >= maxAttempts)
         {
-            Debug.Log("5회 실패, 게임 종료");
+            Debug.Log("5회 실패");
             if (failObject != null) failObject.SetActive(true);
             EndGame();
             return;
@@ -166,7 +172,7 @@ public class CoddleManager_Jamo : MonoBehaviour
         char[] result = new char[len];
         bool[] used = new bool[len];
 
-        // 위치 + 글자 완전 일치
+        // 위치+문자 완전 일치
         for (int i = 0; i < len; i++)
         {
             if (inputJamos[i] == targetJamoList[i])
@@ -176,7 +182,7 @@ public class CoddleManager_Jamo : MonoBehaviour
             }
         }
 
-        // 글자만 포함
+        // 글자 포함
         for (int i = 0; i < len; i++)
         {
             if (result[i] == 'O') continue;
@@ -236,4 +242,19 @@ public class CoddleManager_Jamo : MonoBehaviour
         yield return new WaitForSeconds(3f);
         warningText.SetActive(false);
     }
+
+    public void SubmitButton()
+{
+    OnSubmit(inputField.text);
+}
+
+public void OpenPanel()
+{
+    somePanel.SetActive(true);
+}
+
+public void ClosePanel()
+{
+    somePanel.SetActive(false);
+}
 }

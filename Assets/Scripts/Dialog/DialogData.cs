@@ -6,6 +6,9 @@ public class DialogLine
     public string characterName;
     public Sprite characterSprite;
     [TextArea] public string text;
+
+    public Vector2 imageSize = new Vector2(400, 400);
+
 }
 
 
