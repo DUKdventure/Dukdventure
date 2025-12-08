@@ -3,21 +3,29 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerSafeCheck))]
 public class PlayerJumpTopDown : MonoBehaviour
 {
-    [Header("이동")]
+    [Header("Move")]
     public float moveSpeed = 3f;
 
-    [Header("점프")]
+    [Header("Jump")]
     public float jumpPower = 5f;   // 점프 시작 속도
     public float gravity = -20f;   // 점프 중 아래로 당기는 값(음수)
 
-    [Header("비주얼용 스프라이트 루트")]
+    [Header("Child")]
     public Transform spriteRoot;   // 캐릭터 스프라이트가 달린 자식 오브젝트
+
+    [Header("Animation")]
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+
+    Vector2 moveInput;       // 현재 입력 방향
+    Vector2 lastMoveDir = Vector2.down;
 
     float height = 0f;            // 현재 점프 높이
     float velocity = 0f;  // 점프 속도
     bool isJumping = false;
 
     PlayerSafeCheck safeCheck;
+    string currentAnimState = "";
 
     void Awake()
     {
@@ -35,6 +43,7 @@ public class PlayerJumpTopDown : MonoBehaviour
         HandleMove();
         HandleJump();
         UpdateJumpHeightVisual();
+        UpdateAnimation();
     }
 
     void HandleMove()
@@ -42,12 +51,15 @@ public class PlayerJumpTopDown : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal"); // A,D 또는 ←,→
         float v = Input.GetAxisRaw("Vertical");   // W,S 또는 ↑,↓
 
-        Vector3 dir = new Vector3(h, v, 0f).normalized;
+        moveInput = new Vector2(h, v).normalized;
 
-        // dir이 (0,0)이 아니면 이동
-        if (dir.sqrMagnitude > 0f)
+        if (moveInput.sqrMagnitude > 0.001f)
         {
-            transform.position += dir * moveSpeed * Time.deltaTime;
+            // 실제 위치 이동
+            transform.position += (Vector3)moveInput * moveSpeed * Time.deltaTime;
+
+            // 마지막 이동 방향 갱신 (0일 때는 갱신 X)
+            lastMoveDir = moveInput;
         }
     }
 
@@ -87,6 +99,61 @@ public class PlayerJumpTopDown : MonoBehaviour
                 safeCheck.CheckAfterLanding(); // 착지한 위치가 판자인지 확인
             }
         }
+    }
+
+    void UpdateAnimation()
+    {
+        if (animator == null) return;
+
+        // 움직이는 중? (점프 중일 땐 Walk 안 씀)
+        bool isMoving = moveInput.sqrMagnitude > 0.001f && !isJumping;
+
+        // ===== 방향 계산 (Front / Back / Side) =====
+        string dirStr = "Front"; // 기본값: 아래 보고 있음
+
+        // lastMoveDir 기준으로 방향 결정
+        if (Mathf.Abs(lastMoveDir.x) > Mathf.Abs(lastMoveDir.y))
+        {
+            // 좌우가 더 크면 Side
+            dirStr = "Side";
+
+            // 오른쪽/왼쪽에 따라 스프라이트 뒤집기
+            if (spriteRenderer != null)
+            {
+                if (lastMoveDir.x > 0.01f) spriteRenderer.flipX = true; // 기본을 오른쪽 바라보는 스프라이트라고 가정
+                else if (lastMoveDir.x < -0.01f) spriteRenderer.flipX = false;
+            }
+        }
+        else
+        {
+            // 위/아래가 더 크면 Front / Back
+            if (lastMoveDir.y > 0.01f)
+                dirStr = "Back";
+            else
+                dirStr = "Front";
+        }
+
+        // ===== 상태에 따라 재생할 애니메이션 이름 결정 =====
+        string nextState;
+
+        if (isJumping)
+        {
+            nextState = dirStr + "_Jump";   // 예: "Front_Jump"
+        }
+        else if (isMoving)
+        {
+            nextState = dirStr + "_Walk";   // 예: "Side_Walk"
+        }
+        else
+        {
+            nextState = dirStr + "_Idle";   // 예: "Back_Idle"
+        }
+
+        // 현재 재생 중인 상태와 같으면 다시 재생하지 않음 (애니메이션 리셋 방지)
+        if (nextState == currentAnimState) return;
+
+        animator.CrossFade(nextState, 0.1f);
+        currentAnimState = nextState;
     }
 
     void UpdateJumpHeightVisual()
