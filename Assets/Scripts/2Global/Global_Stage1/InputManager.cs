@@ -45,7 +45,9 @@ public class InputManager : MonoBehaviour
     public GameObject somePanel;
     void Start()
     {   
-
+        string result = TutorialResultManager.Instance.finalResult;
+        Debug.Log("튜토리얼 결과: " + result);
+        
         // 정답 랜덤 선택
         targetWord = wordPool[Random.Range(0, wordPool.Length)];
         targetJamoList = SplitToJamos(targetWord);

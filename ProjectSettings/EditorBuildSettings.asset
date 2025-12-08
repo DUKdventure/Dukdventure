@@ -47,6 +47,33 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2Global/Stage 2/GlobalDialog_S2FailEnding.unity
     guid: c0f3f0723fed52842bfe4a1d5a9390d0
+  - enabled: 0
+    path: Assets/Scenes/2Global/Stage 3/Question/Question3_1.unity
+    guid: 956bf70e78fcd2d418599ed0284aea98
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 3/GlobalDialog_S3ClearEnding.unity
+    guid: 7df07277f60e3474aaa05c4840a15e37
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 3/GlobalDialog_S3FailEnding.unity
+    guid: 2222529c13e4e464484e79604e80d7b4
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 3/GlobalGameScene_Stage3.unity
+    guid: 5ce51ead3bedc4c47b0d5a8b1a8c3818
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 3/GloballDialog_S3Intro.unity
+    guid: d3f9198ff5cc5524da0663addedcbf44
+  - enabled: 0
+    path: Assets/Scenes/2Global/Stage 3/Question/Question3_2.unity
+    guid: 23006bbae067bfd4b8eda43dde075204
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 3/Question/Question3-1.unity
+    guid: 2ebe09d3467ad2648984386ca771ab3c
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 3/Question/Question3-2.unity
+    guid: 51023e21642168c4cb23f1c5239ace5e
+  - enabled: 1
+    path: Assets/Scenes/2Global/Stage 3/Question/Question3-3.unity
+    guid: 49915a4fd6c9a3b4c8826d4d4e2fabd6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
