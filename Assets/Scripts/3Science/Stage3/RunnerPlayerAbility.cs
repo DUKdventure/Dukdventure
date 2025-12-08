@@ -7,17 +7,28 @@ public class RunnerPlayerAbility : MonoBehaviour
     public float crateSpawnHeight = 2f;
     public RatChaser rat;
 
+    string result;
+
     float timer = 0f;
+
+    private void Start()
+    {
+        result = TutorialResultManager.Instance.finalResult;
+    }
 
     void Update()
     {
         if (timer > 0)
             timer -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.E) && timer <= 0f)
+        if(result == "Science")
         {
-            UseAbility();
+            if (Input.GetKeyDown(KeyCode.E) && timer <= 0f)
+            {
+                UseAbility();
+            }
         }
+        
     }
 
     void UseAbility()
