@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class DropZone : MonoBehaviour, IDropHandler
+public class DropZone1 : MonoBehaviour, IDropHandler
 {
     public TMP_Text sentenceText;
     public string correctAnswer;
@@ -10,7 +10,7 @@ public class DropZone : MonoBehaviour, IDropHandler
 
     public string nextScene1;   // 정답일 때 이동할 씬
     public string nextScene2;   // 오답일 때 이동할 씬
-    int index = 0;
+    int index = 1;
 
     
     public void OnDrop(PointerEventData eventData)

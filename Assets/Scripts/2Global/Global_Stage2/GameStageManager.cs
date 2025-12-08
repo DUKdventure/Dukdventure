@@ -7,6 +7,8 @@ public class GameStageManager : MonoBehaviour
     public int currentStage = 1;  
     // 1 = 초록 → 2 = 노랑 → 3 = 빨강
 
+    public GameObject flashTarget;  // Inspector에서 연결
+
     private void Awake()
     {
         Instance = this;
@@ -23,13 +25,16 @@ public class GameStageManager : MonoBehaviour
 
         currentStage++;
 
-        // 3개의 단계를 모두 찾았을 때
+        // 3개의 책을 모두 찾았을 때
         if (currentStage > 3)
         {
             Debug.Log("모든 책을 찾았어요!");
 
-            // 클리어 UI 표시
-            UIManager.Instance.ShowClear();
+            // 🔥 섬광 효과가 끝난 후 Clear 패널을 띄우기
+            FlashSpawner.Instance.SpawnFlashAt(flashTarget, () =>
+            {
+                UIManager.Instance.ShowClear();
+            });
         }
     }
 }

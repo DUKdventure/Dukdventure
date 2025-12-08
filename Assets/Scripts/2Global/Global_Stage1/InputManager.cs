@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour
         "철학"
     };
 
-    private int maxAttempts = 5;
+    private int maxAttempts = 4;
     private int currentAttempt = 0;
     private bool isGameOver = false;
 
@@ -45,7 +45,13 @@ public class InputManager : MonoBehaviour
     public GameObject somePanel;
     void Start()
     {   
+        string result = TutorialResultManager.Instance.finalResult;
+        Debug.Log("튜토리얼 결과: " + result);
 
+        if( result == "Global")
+        {
+             maxAttempts= 5;
+        }
         // 정답 랜덤 선택
         targetWord = wordPool[Random.Range(0, wordPool.Length)];
         targetJamoList = SplitToJamos(targetWord);

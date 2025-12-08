@@ -20,7 +20,7 @@ public class BookShelfManager : MonoBehaviour
     }
 
     void SelectRandomShelves()
-    {
+    {   
         List<int> temp = new List<int>();
         for (int i = 0; i < shelves.Count; i++)
             temp.Add(i);
