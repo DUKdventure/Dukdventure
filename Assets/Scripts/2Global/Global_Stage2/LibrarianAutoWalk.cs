@@ -3,24 +3,19 @@ using UnityEngine;
 public class LibrarianAutoWalk : MonoBehaviour
 {
     public float moveSpeed = 2f;      
-    public Transform[] waywalk;    // 이름 변경됨!
+    public Transform[] waywalk;     
 
-    private int targetIndex = 0;        
+    private int index = 0;           
     private Animator animator;
+    
+    SpriteRenderer sr;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-
+        sr=GetComponent<SpriteRenderer>();
         if (waywalk.Length > 0)
-        {
-            // 첫 시작 지점은 랜덤
-            targetIndex = Random.Range(0, waywalk.Length);
-            transform.position = waywalk[targetIndex].position;
-
-            // 다음 목표 지점도 랜덤으로 설정
-            targetIndex = Random.Range(0, waywalk.Length);
-        }
+            transform.position = waywalk[0].position;
     }
 
     void Update()
@@ -32,16 +27,20 @@ public class LibrarianAutoWalk : MonoBehaviour
     {
         if (waywalk.Length == 0) return;
 
-        Transform target = waywalk[targetIndex];
+        Transform target = waywalk[index];
         Vector3 dir = target.position - transform.position;
 
-        // 거의 도착 → Idle + 다음 랜덤 위치 선택
+        // 거의 도착 → 다음 index로 이동
         if (dir.magnitude < 0.05f)
         {
             animator.SetBool("IsWalking", false);
 
-            // 다음 목적지 랜덤 선택
-            targetIndex = Random.Range(0, waywalk.Length);
+            index++;
+
+            // 배열 끝까지 갔다면 → 0으로 다시 돌아가기 (무한 반복)
+            if (index >= waywalk.Length)
+                index = 0;
+
             return;
         }
 
@@ -51,10 +50,8 @@ public class LibrarianAutoWalk : MonoBehaviour
         // 이동
         transform.position += dir.normalized * moveSpeed * Time.deltaTime;
 
-        // 바라보는 방향 회전
-        if (dir != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(dir);
-        }
+        // 캐릭터 방향 회전
+        if (dir.x <0)
+            sr.flipX = true;  
     }
 }
