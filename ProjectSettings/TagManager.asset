@@ -9,17 +9,18 @@ TagManager:
   - SamplePlate
   - FocusLens
   - Petri
+  - Rat
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacle
   - Water
   - UI
+  - Librarian
   - 
-  - 
-  - 
-  - 
+  - Ground
+  - Player
   - 
   - 
   - 

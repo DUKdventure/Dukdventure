@@ -537,7 +537,6 @@ MonoBehaviour:
   useFade: 1
   fadeImage: {fileID: 1084299299}
   fadeDuration: 1
-  waitDuration: 2
 --- !u!4 &1640395160
 Transform:
   m_ObjectHideFlags: 0

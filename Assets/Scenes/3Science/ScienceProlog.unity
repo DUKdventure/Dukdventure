@@ -432,7 +432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1388801648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -450,7 +450,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1101, y: 506}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1388801649
 MonoBehaviour:
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: bf83685604ff1b7459256bcd2415bc63, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -618,6 +618,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7481533146022590196, guid: b032bfefe10f669468737107de92cb00, type: 3}
+      propertyPath: skipAll
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481533146022590196, guid: b032bfefe10f669468737107de92cb00, type: 3}
       propertyPath: loadingVideo
       value: 
       objectReference: {fileID: 1002700217}
@@ -632,6 +636,10 @@ PrefabInstance:
     - target: {fileID: 7481533146022590196, guid: b032bfefe10f669468737107de92cb00, type: 3}
       propertyPath: minLoadingSeconds
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492925655481446613, guid: b032bfefe10f669468737107de92cb00, type: 3}
+      propertyPath: m_margin.z
+      value: -352.62976
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -685,6 +693,10 @@ PrefabInstance:
     - target: {fileID: 2238142086701248989, guid: b026d569cf577784bbeed5e3f6d35d33, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767227759248977926, guid: b026d569cf577784bbeed5e3f6d35d33, type: 3}
+      propertyPath: sceneToLoad
+      value: Stage2Intro
       objectReference: {fileID: 0}
     - target: {fileID: 4767227759248977926, guid: b026d569cf577784bbeed5e3f6d35d33, type: 3}
       propertyPath: loadingVideo
