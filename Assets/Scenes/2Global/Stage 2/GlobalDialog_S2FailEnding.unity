@@ -225,10 +225,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueCanvasSwitcher
   panelA: {fileID: 1017730028}
   panelB: {fileID: 335424707}
-  useFade: 1
+  fadeOut: 0
+  fadeIn: 1
   fadeImage: {fileID: 399696107}
   fadeDuration: 1
-  waitDuration: 2
 --- !u!4 &290959155
 Transform:
   m_ObjectHideFlags: 0

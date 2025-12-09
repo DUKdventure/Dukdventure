@@ -10,19 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c30c96e71aa63164a9bbd72a6d08a7c9, type: 3}
-  m_Name: GlobalStage1Dialog_intro1
+  m_Name: GlobalStageDialog_S3ClearEnding
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
-  - characterName: "\uB355\uC0C8"
+  - characterName: "\uC2A4\uD551\uD06C\uC2A4"
     characterSprite: {fileID: 0}
-    text: "(\uB300\uD559\uC0DD \uCCAB \uC218\uC5C5! \uC778\uBB38\uC0AC\uD68C \uAC15\uC758\uC5D0
-      \uB4E4\uC5B4\uC654\uB2E4!)"
+    text: "\uC544\uB2C8! \uC774\uB807\uAC8C \uC5B4\uB824\uC6B4 \uBB38\uC81C\uB97C
+      \uBAA8\uB450 \uB9DE\uCD94\uB2E4\uB2C8\r\n"
     imageSize: {x: 0, y: 0}
-  - characterName: "\uAD50\uC218"
-    characterSprite: {fileID: -7376690901357878632, guid: 1c36ab2264587474c8292cf004ed2b60, type: 3}
-    text: '@!@#$%^&*&^%$&*#'
-    imageSize: {x: 0, y: 0}
-  - characterName: "\uB355\uC0C8"
+  - characterName: "\uC2A4\uD551\uD06C\uC2A4"
     characterSprite: {fileID: 0}
-    text: "(\uD5C9...! \uD558\uB098\uB3C4 \uBAA8\uB974\uACA0\uC5B4!)"
+    text: "\uD06C\uD07C...\uC6D0\uB798 \uC138\uACC4\uB85C \uBCF4\uB0B4\uC8FC\uC9C0\r\n"
     imageSize: {x: 0, y: 0}

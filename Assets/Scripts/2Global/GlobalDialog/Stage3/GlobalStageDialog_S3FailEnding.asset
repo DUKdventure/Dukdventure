@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30c96e71aa63164a9bbd72a6d08a7c9, type: 3}
+  m_Name: GlobalStageDialog_S3FailEnding
+  m_EditorClassIdentifier: Assembly-CSharp::DialogData
+  lines:
+  - characterName: "\uC2A4\uD551\uD06C\uC2A4"
+    characterSprite: {fileID: -5485505658585804909, guid: 97edf851b609393478d180e93c005375, type: 3}
+    text: "\uC6B0\uD558\uD558\uD558 \uC2E4\uD328\uD560 \uC904 \uC54C\uC558\uB2E4!"
+    imageSize: {x: 0, y: 0}
+  - characterName: "\uC2A4\uD551\uD06C\uC2A4"
+    characterSprite: {fileID: -5485505658585804909, guid: 97edf851b609393478d180e93c005375, type: 3}
+    text: "\uC2E4\uD328\uD588\uC73C\uB2C8 \uAE30\uC5B5\uC744 \uC9C0\uC6B0\uACE0 \uB2E4\uC2DC
+      \uC785\uD559 \uC804\uC73C\uB85C \uB3CC\uB824\uBCF4\uB0B4\uC8FC\uB9C8!\r\n"
+    imageSize: {x: 0, y: 0}
+  - characterName: "\uB355\uC0C8"
+    characterSprite: {fileID: 9079106511365804854, guid: 1b58b95880becf64793446fdf43f583f, type: 3}
+    text: "\uC548\uB3FC\uC560\uC560\uC560"
+    imageSize: {x: 0, y: 0}

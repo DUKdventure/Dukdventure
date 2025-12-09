@@ -30,6 +30,13 @@ public class DialoguePanelSwitcher : MonoBehaviour
     IEnumerator FadeProcess()
     {
         isSwitching = true;
+        
+        if (fadeImage == null)
+        {
+            panelB.SetActive(true);
+            isSwitching = false;
+            yield break;
+        }
 
         fadeImage.gameObject.SetActive(true);
         Color c = fadeImage.color;
