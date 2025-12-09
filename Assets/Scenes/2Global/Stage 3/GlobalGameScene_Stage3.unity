@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7c9eedf6834cc4e9e8bfa763496a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraLimit
-  minX: -45
+  minX: -40
   maxX: 45
   minY: -8
   maxY: 0

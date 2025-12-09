@@ -295,7 +295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4767227759248977926, guid: b026d569cf577784bbeed5e3f6d35d33, type: 3}
       propertyPath: sceneToLoad
-      value: 
+      value: GlobalGameScene_Stage3
       objectReference: {fileID: 0}
     - target: {fileID: 4767227759248977926, guid: b026d569cf577784bbeed5e3f6d35d33, type: 3}
       propertyPath: loadingVideo

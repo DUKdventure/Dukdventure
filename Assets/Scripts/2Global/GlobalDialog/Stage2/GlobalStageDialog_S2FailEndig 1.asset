@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
   - characterName: "\uAD50\uC218"
-    characterSprite: {fileID: -7376690901357878632, guid: 1c36ab2264587474c8292cf004ed2b60, type: 3}
-    text: "\uC790\uB8CC\uC870\uC0AC\uB97C \uBD80\uD0C1\uD588\uB294\uB370 \uBABB\uD574\uC640?"
+    characterSprite: {fileID: 9149451522668198607, guid: f8559456b18fdad488e890446ee6da8b, type: 3}
+    text: "\uBCF4\uACE0\uC11C \uD558\uB098\uB3C4 \uC791\uC131 \uBABB\uD574\uC640?"
     imageSize: {x: 450, y: 650}
   - characterName: "\uAD50\uC218"
-    characterSprite: {fileID: -7376690901357878632, guid: 1c36ab2264587474c8292cf004ed2b60, type: 3}
+    characterSprite: {fileID: 9149451522668198607, guid: f8559456b18fdad488e890446ee6da8b, type: 3}
     text: "\uB355\uC0C8 \uC790\uB124\uB294 \uC218\uC5C5\uC744 \uB4E4\uC744 \uC790\uACA9\uC774
       \uC5C6\uB124!"
     imageSize: {x: 450, y: 650}
   - characterName: "\uAD50\uC218"
-    characterSprite: {fileID: -7376690901357878632, guid: 1c36ab2264587474c8292cf004ed2b60, type: 3}
+    characterSprite: {fileID: 9149451522668198607, guid: f8559456b18fdad488e890446ee6da8b, type: 3}
     text: "\uB2E4\uC2DC \uC218\uAC15\uD558\uB3C4\uB85D!"
     imageSize: {x: 450, y: 650}
   - characterName: "\uB355\uC0C8"
