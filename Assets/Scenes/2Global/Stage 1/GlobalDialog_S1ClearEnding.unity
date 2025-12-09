@@ -449,7 +449,7 @@ PrefabInstance:
     - target: {fileID: 7481533146022590196, guid: b032bfefe10f669468737107de92cb00, type: 3}
       propertyPath: dialogData
       value: 
-      objectReference: {fileID: 11400000, guid: 4d2ec38b1f5aa2f48b024015bd1f649e, type: 2}
+      objectReference: {fileID: 11400000, guid: f840573084bfcbb498decc96011a77ff, type: 2}
     - target: {fileID: 7481533146022590196, guid: b032bfefe10f669468737107de92cb00, type: 3}
       propertyPath: nextSceneName
       value: GloballDialog_S2Intro

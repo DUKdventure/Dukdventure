@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   lines:
   - characterName: "\uAD50\uC218"
-    characterSprite: {fileID: -7376690901357878632, guid: 1c36ab2264587474c8292cf004ed2b60, type: 3}
+    characterSprite: {fileID: 9149451522668198607, guid: f8559456b18fdad488e890446ee6da8b, type: 3}
     text: "\uC544\uB2C8 \uC774\uB807\uAC8C \uC26C\uC6B4 \uBB38\uC81C\uB3C4 \uB2F5\uC744
-      \uB9DE\uCD98\uB2E4\uACE0?"
+      \uBABB \uB9DE\uCD98\uB2E4\uACE0?"
     imageSize: {x: 450, y: 650}
   - characterName: "\uAD50\uC218"
-    characterSprite: {fileID: -7376690901357878632, guid: 1c36ab2264587474c8292cf004ed2b60, type: 3}
+    characterSprite: {fileID: 9149451522668198607, guid: f8559456b18fdad488e890446ee6da8b, type: 3}
     text: "\uB355\uC0C8 \uD559\uC0DD! \uC790\uB124\uB294 \uBC30\uC6B8 \uC790\uACA9\uC774
       \uC5C6\uB124!"
     imageSize: {x: 450, y: 650}
   - characterName: "\uAD50\uC218"
-    characterSprite: {fileID: -7376690901357878632, guid: 1c36ab2264587474c8292cf004ed2b60, type: 3}
-    text: "F\uD559\uC810\uC774\uB124."
+    characterSprite: {fileID: 9149451522668198607, guid: f8559456b18fdad488e890446ee6da8b, type: 3}
+    text: "F\uD559\uC810\uC774\uB124! \uC218\uC5C5 \uB4E3\uC9C0 \uB9D0\uAC8C!"
     imageSize: {x: 450, y: 650}
   - characterName: "\uB355\uC0C8"
     characterSprite: {fileID: -7376690901357878632, guid: 1c36ab2264587474c8292cf004ed2b60, type: 3}
