@@ -29,12 +29,7 @@ public class GameStageManager : MonoBehaviour
         if (currentStage > 3)
         {
             Debug.Log("모든 책을 찾았어요!");
-
-            // 🔥 섬광 효과가 끝난 후 Clear 패널을 띄우기
-            FlashSpawner.Instance.SpawnFlashAt(flashTarget, () =>
-            {
-                UIManager.Instance.ShowClear();
-            });
+            UIManager.Instance.ShowClear();
         }
     }
 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -8,53 +7,68 @@ public class DialoguePanelSwitcher : MonoBehaviour
     public GameObject panelA;
     public GameObject panelB;
 
-    [Header("옵션")]
-    public bool useFade = false;       // ← 체크박스
-    public Image fadeImage;            // ← 페이드용 이미지(검정 화면)
-    public float fadeDuration = 1f;    // 페이드 속도
+    [Header("Fade Options")]
+    public bool fadeOut = true;    // 화면을 어둡게
+    public bool fadeIn = true;     // 화면을 밝게
+    public Image fadeImage;
+    public float fadeDuration = 1f;
+
+    private bool isSwitching = false;
 
     void Update()
     {
+        if (isSwitching) return;
         if (panelA == null || panelB == null) return;
 
-        // A가 꺼지고 B가 꺼져있다면 전환 실행
         if (!panelA.activeInHierarchy && !panelB.activeSelf)
         {
-            if (useFade)
-            {
-                StartCoroutine(FadeAndSwitch());
-            }
-            else
-            {
-                Debug.Log("[PanelSwitch] 즉시 전환 실행");
-                panelB.SetActive(true);
-            }
+            StartCoroutine(FadeProcess());
         }
     }
 
-    IEnumerator FadeAndSwitch()
-    {
-        Debug.Log("[PanelSwitch] 페이드아웃 실행");
 
-        // FadeImage 켜기
+    IEnumerator FadeProcess()
+    {
+        isSwitching = true;
+
         fadeImage.gameObject.SetActive(true);
         Color c = fadeImage.color;
-        c.a = 0f;
-        fadeImage.color = c;
 
-        // 알파값 올리기
-        float t = 0f;
-        while (t < fadeDuration)
+        // ---------------------------
+        // 1) Fade Out (0 → 1)
+        // ---------------------------
+        if (fadeOut)
         {
-            t += Time.deltaTime;
-            c.a = Mathf.Lerp(0, 1, t / fadeDuration);
-            fadeImage.color = c;
-            yield return null;
+            float t = 0f;
+            while (t < fadeDuration)
+            {
+                t += Time.deltaTime;
+                c.a = Mathf.Lerp(0f, 1f, t / fadeDuration);
+                fadeImage.color = c;
+                yield return null;
+            }
         }
 
-        // 페이드 완료 후 PanelB 켜기
+        // 패널 교체
         panelB.SetActive(true);
 
-        Debug.Log("[PanelSwitch] 페이드 완료 → PanelB 활성화됨");
+        // ---------------------------
+        // 2) Fade In (1 → 0)
+        // ---------------------------
+        if (fadeIn)
+        {
+            float t = 0f;
+            while (t < fadeDuration)
+            {
+                t += Time.deltaTime;
+                c.a = Mathf.Lerp(1f, 0f, t / fadeDuration);
+                fadeImage.color = c;
+                yield return null;
+            }
+        }
+
+        // 끝나면 페이드 이미지 숨김
+        fadeImage.gameObject.SetActive(false);
+        isSwitching = false;
     }
 }
